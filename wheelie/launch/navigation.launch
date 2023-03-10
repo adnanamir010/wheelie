@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<launch>
+  <!-- Arguments -->
+  <arg name="move_forward_only" default="true"/>
+
+  <!-- Map server for Map-based Navigation-->
+ 
+	 <node pkg="map_server" name="map_server" type="map_server" args="$(find wheelie)/maps/rigworld.yaml"/>
+
+
+  <!-- AMCL -->
+  <include file="$(find wheelie)/launch/amcl.launch"></include>
+
+  <!-- rviz -->
+  <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find wheelie)/rviz/rig.rviz"/>
+
+  <!-- move_base -->
+  <include file="$(find wheelie)/launch/move_base.launch">
+    <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+  </include>
+
+</launch>

@@ -1,0 +1,138 @@
+<?xml version="1.0" ?>
+<robot name="2WDrive" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find wheelie)/urdf/materials.xacro" />
+<xacro:include filename="$(find wheelie)/urdf/2WDrive.trans" />
+<xacro:include filename="$(find wheelie)/urdf/2WDrive.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.0053018107056467135 -1.252045442277142e-17 0.032816165509054356" rpy="0 0 0"/>
+    <mass value="0.7699915285230573"/>
+    <inertia ixx="0.001296" iyy="0.00189" izz="0.003012" ixy="-0.0" iyz="0.0" ixz="9e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://wheelie/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://wheelie/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_wheel_1">
+  <inertial>
+    <origin xyz="1.4925560787304448e-14 -0.01249999999999997 -6.938893903907228e-18" rpy="0 0 0"/>
+    <mass value="0.06391177554646728"/>
+    <inertia ixx="1.8e-05" iyy="3e-05" izz="1.8e-05" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.045 0.085 -0.03" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://wheelie/meshes/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="black"/>
+  </visual>
+  <collision>
+    <origin xyz="0.045 0.085 -0.03" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://wheelie/meshes/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_wheel_1">
+  <inertial>
+    <origin xyz="1.4925560787304448e-14 0.012500000000000011 0.0" rpy="0 0 0"/>
+    <mass value="0.06391177554646728"/>
+    <inertia ixx="1.8e-05" iyy="3e-05" izz="1.8e-05" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.045 -0.085 -0.03" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://wheelie/meshes/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="black"/>
+  </visual>
+  <collision>
+    <origin xyz="0.045 -0.085 -0.03" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://wheelie/meshes/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lidar_1">
+  <inertial>
+    <origin xyz="-1.3322676295501878e-17 -8.881784197001253e-18 0.0049999999999999906" rpy="0 0 0"/>
+    <mass value="0.26048711836780625"/>
+    <inertia ixx="7.1e-05" iyy="7.1e-05" izz="0.000138" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.0 -0.0675" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://wheelie/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="red"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.0 -0.0675" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://wheelie/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="caster_1">
+  <inertial>
+    <origin xyz="-0.024999999999999994 1.3931386937449837e-20 -0.0065625000000000076" rpy="0 0 0"/>
+    <mass value="0.088113492702325"/>
+    <inertia ixx="7e-06" iyy="7e-06" izz="1.1e-05" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.093 -0.0 -0.0175" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://wheelie/meshes/caster_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.093 -0.0 -0.0175" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://wheelie/meshes/caster_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="right_wheel_joint" type="continuous">
+  <origin xyz="-0.045 -0.085 0.03" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="right_wheel_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+<joint name="left_wheel_joint" type="continuous">
+  <origin xyz="-0.045 0.085 0.03" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="left_wheel_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+<joint name="lidar_joint" type="fixed">
+  <origin xyz="0.0 0.0 0.0675" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="lidar_1"/>
+</joint>
+
+<joint name="caster_joint" type="fixed">
+  <origin xyz="0.093 0.0 0.0175" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="caster_1"/>
+</joint>
+
+</robot>
